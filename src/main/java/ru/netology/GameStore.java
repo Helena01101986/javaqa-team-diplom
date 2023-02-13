@@ -15,6 +15,7 @@ public class GameStore {
      */
     private Map<String, Integer> playedTime = new HashMap<>();
 
+
     /**
      * Создание объекта игры с заданными заголовком и жанром
      * Каждый объект игры помнит объект каталога, которому она принадлежит
@@ -30,7 +31,7 @@ public class GameStore {
      * если игра есть и false иначе
      */
     public boolean containsGame(Game game) {
-        for (int i = 1; i < games.size(); i++) {
+        for (int i = 1; i <= games.size(); i++) {
             if (games.get(i - 1).equals(game)) {
                 return true;
             }
@@ -44,8 +45,9 @@ public class GameStore {
      * суммироваться с прошлым значением для этого игрока
      */
     public void addPlayTime(String playerName, int hours) {
+
         if (playedTime.containsKey(playerName)) {
-            playedTime.put(playerName, playedTime.get(playerName));
+            playedTime.put(playerName, playedTime.get(playerName) + hours);
         } else {
             playedTime.put(playerName, hours);
         }
@@ -56,7 +58,7 @@ public class GameStore {
      * времени. Если игроков нет, то возвращется null
      */
     public String getMostPlayer() {
-        int mostTime = 1;
+        int mostTime = 0;
         String bestPlayer = null;
         for (String playerName : playedTime.keySet()) {
             int playerTime = playedTime.get(playerName);
@@ -68,11 +70,24 @@ public class GameStore {
         return bestPlayer;
     }
 
+
     /**
      * Суммирует общее количество времени всех игроков, проведённого
      * за играми этого каталога
      */
     public int getSumPlayedTime() {
-        return 0;
+        int sum = 0;
+        for (String playerName : playedTime.keySet())
+            if (playedTime.containsKey(playerName)) {
+                sum += playedTime.get(playerName);
+            } else {
+                sum = 0;
+            }
+        return sum;
     }
 }
+
+
+
+
+
