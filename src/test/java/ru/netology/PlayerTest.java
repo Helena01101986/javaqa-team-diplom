@@ -1,8 +1,11 @@
 package ru.netology;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
 import java.util.HashMap;
 import java.util.Map;
+
 public class PlayerTest {
     private Map<Game, Integer> playedTime = new HashMap<>();
     GameStore store = new GameStore();
@@ -10,6 +13,7 @@ public class PlayerTest {
     Game game2 = store.publishGame("Mario", "Экшен");
     Game game3 = store.publishGame("Tetris", "Логические");
     Player player = new Player("Petya");
+
     @Test
     public void shouldSumGenreIfOneGame() {
         GameStore store = new GameStore();
@@ -21,6 +25,7 @@ public class PlayerTest {
         int actual = player.sumGenre(game1.getGenre());
         Assertions.assertEquals(expected, actual);
     }
+
     @Test
     public void shouldSumGenreIfTimeIsZero() {
         player.installGame(game2);
@@ -29,6 +34,7 @@ public class PlayerTest {
         int actual = player.sumGenre("Экшен");
         Assertions.assertEquals(expected, actual);
     }
+
     @Test
     public void shouldSumGenreIfGameUninstall() {
         //player.installGame(game2);
@@ -38,6 +44,7 @@ public class PlayerTest {
             player.play(game2, 0);
         });
     }
+
     @Test //баг-репорт
     public void shouldSumGenreIfSeveralGames() {
         player.installGame(game1);
@@ -50,6 +57,7 @@ public class PlayerTest {
         int actual = player.sumGenre("Экшен");
         Assertions.assertEquals(expected, actual);
     }
+
     @Test //баг-репорт
     public void shouldSumGenreIfSeveralSameGames() {
         player.installGame(game1);
@@ -63,6 +71,7 @@ public class PlayerTest {
         int actual = player.sumGenre("Логические");     //проигранных в третью игру не считает
         Assertions.assertEquals(expected, actual);
     }
+
     @Test
     public void shouldSumGenreIfOneGameSeveralTimes() {
         player.installGame(game1);
@@ -73,6 +82,7 @@ public class PlayerTest {
         int actual = player.sumGenre(game1.getGenre());
         Assertions.assertEquals(expected, actual);
     }
+
     @Test
     public void shouldFindGameByGenreMostPlayedIfSeveralGames() {
         player.installGame(game1);
@@ -86,6 +96,7 @@ public class PlayerTest {
         Game[] actual = player.mostPlayerByGenre("Логические");
         Assertions.assertArrayEquals(expected, actual);
     }
+
     @Test
     public void shouldFindGameByGenreMostPlayedIfOneGame() {
         player.installGame(game1);
@@ -94,6 +105,7 @@ public class PlayerTest {
         Game[] actual = player.mostPlayerByGenre(game1.getGenre());
         Assertions.assertArrayEquals(expected, actual);
     }
+
     @Test
     public void shouldFindGameByGenreMostPlayedIfNull() {
         player.installGame(game3);
