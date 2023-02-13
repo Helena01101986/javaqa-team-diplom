@@ -12,6 +12,8 @@ public class PlayerTest {
     Game game1 = store.publishGame("Нетология Баттл Онлайн", "Аркады");
     Game game2 = store.publishGame("Mario", "Экшен");
     Game game3 = store.publishGame("Tetris", "Логические");
+
+    Game game4 = store.publishGame("Racing", "Экшен");
     Player player = new Player("Petya");
 
     @Test
@@ -113,6 +115,24 @@ public class PlayerTest {
         Game[] expected = null;
         Game[] actual = player.mostPlayerByGenre(game3.getGenre());
         Assertions.assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldFindGameByGenreMostPlayedIfSeveral() {
+
+        //Game game4 = store.publishGame("Racing", "Экшен");
+
+        player.installGame(game2);
+        player.installGame(game4);
+
+        player.play(game2, 3);
+        player.play(game4, 3);
+
+        Game[] expected = {game2, game4};
+        Game[] actual = player.mostPlayerByGenre("Экшен");
+
+        Assertions.assertArrayEquals(expected, actual);
+
     }
     // другие ваши тесты
 }
